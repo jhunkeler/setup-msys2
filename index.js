@@ -37,11 +37,12 @@ async function run() {
       'setlocal',
       'set MSYS2_PATH_TYPE=strict',
       `%~dp0\\msys64\\usr\\bin\\bash.exe -ilc "cd $OLDPWD && %*"`
-    ].join('\n\r'));
+    ].join('\r\n'));
 
     core.addPath(dest);
 
     core.exportVariable('MSYSTEM', core.getInput('msystem'));
+    core.exportVariable('MSYS_ROOT', [dest, core.getInput('msystem')].join('\\'));
 
     core.startGroup('Starting MSYS2 for the first time...');
       // For some reason, `msys2do` does not work
